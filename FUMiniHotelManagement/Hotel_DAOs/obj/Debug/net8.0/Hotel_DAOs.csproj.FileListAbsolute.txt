@@ -1,0 +1,15 @@
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\bin\Debug\net8.0\Hotel_DAOs.deps.json
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\bin\Debug\net8.0\Hotel_DAOs.dll
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\bin\Debug\net8.0\Hotel_DAOs.pdb
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\bin\Debug\net8.0\Hotel_BussinessObjects.dll
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\bin\Debug\net8.0\Hotel_BussinessObjects.pdb
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\Hotel_DAOs.csproj.AssemblyReference.cache
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\Hotel_DAOs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\Hotel_DAOs.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\Hotel_DAOs.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\Hotel_DAOs.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\Hotel_DAOs.csproj.Up2Date
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\Hotel_DAOs.dll
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\refint\Hotel_DAOs.dll
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\Hotel_DAOs.pdb
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_DAOs\obj\Debug\net8.0\ref\Hotel_DAOs.dll

@@ -1,0 +1,14 @@
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\bin\Debug\net8.0\Hotel_BussinessObjects.deps.json
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\bin\Debug\net8.0\Hotel_BussinessObjects.dll
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\bin\Debug\net8.0\Hotel_BussinessObjects.pdb
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\Hotel_BussinessObjects.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\Hotel_BussinessObjects.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\Hotel_BussinessObjects.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\Hotel_BussinessObjects.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\Hotel_BussinessObjects.dll
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\refint\Hotel_BussinessObjects.dll
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\Hotel_BussinessObjects.pdb
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\ref\Hotel_BussinessObjects.dll
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\bin\Debug\net8.0\Hotel_BussinessObjects.runtimeconfig.json
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\Hotel_BussinessObjects.csproj.AssemblyReference.cache
+C:\Users\ADMIN\source\repos\FUMiniHotelManagement\Hotel_BussinessObjects\obj\Debug\net8.0\Hotel_BussinessObjects.genruntimeconfig.cache

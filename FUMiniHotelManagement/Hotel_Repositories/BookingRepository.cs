@@ -1,6 +1,7 @@
 ﻿using Hotel_BussinessObjects;
 using Hotel_DAOs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Hotel_Repositories
 
         public BookingDetail GetBookingDetailById(int id) => BookingDAO.GetBookingDetailById(id);
 
-        public List<BookingDetail> GetBookingDetails() => BookingDAO.GetBookingDetails();
+        public ArrayList GetBookingDetails() => BookingDAO.GetBookingDetails();
 
         public void SaveBooking(BookingDetail booking) => BookingDAO.SaveBooking(booking);
 

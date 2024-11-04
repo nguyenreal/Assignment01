@@ -1,6 +1,7 @@
 ﻿using Hotel_BussinessObjects;
 using Hotel_DAOs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Hotel_Repositories
 {
     public interface IBookingReservationRepository
     {
-        List<BookingReservation> GetBookingReservations();
+        ArrayList GetBookingReservations();
         bool CreateBookingReservation(BookingReservation bookingRe);
     }
 }

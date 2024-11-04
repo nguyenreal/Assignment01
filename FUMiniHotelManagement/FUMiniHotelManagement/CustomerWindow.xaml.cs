@@ -1,6 +1,7 @@
 ﻿using Hotel_BussinessObjects;
 using Hotel_Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,17 +17,14 @@ using System.Windows.Shapes;
 
 namespace FUMiniHotelManagement
 {
-    /// <summary>
-    /// Interaction logic for CustomerWindow.xaml
-    /// </summary>
     public partial class CustomerWindow : Window
     {
-        private readonly IRoomTypeService roomTypeService ;
-        private readonly IRoomService roomService ;
-        private readonly IBookingService bookingService ;
-        private readonly ICustomerService customerService ;
-        private readonly IBookingReservastionService bookingReservastionService ;
-        private List<RoomInformation> availableRooms = new();
+        private readonly IRoomTypeService roomTypeService;
+        private readonly IRoomService roomService;
+        private readonly IBookingService bookingService;
+        private readonly ICustomerService customerService;
+        private readonly IBookingReservastionService bookingReservastionService;
+        private ArrayList availableRooms;
         private readonly int customerId;
 
         public CustomerWindow(int customerId)
@@ -38,10 +36,12 @@ namespace FUMiniHotelManagement
             this.bookingService = new BookingService();
             this.customerService = new CustomerService();
             this.bookingReservastionService = new BookingReservationService();
+            this.availableRooms = new ArrayList();
 
             LoadRoomTypes();
             LoadBookingDetails();
         }
+
         private void LoadRoomTypes()
         {
             var roomTypes = roomTypeService.GetRoomTypes();
@@ -52,12 +52,20 @@ namespace FUMiniHotelManagement
 
         private void LoadRoomsByType(int roomTypeId)
         {
-            availableRooms = roomService.GetRoomInformations()
-                .Where(r => r.RoomTypeId == roomTypeId && r.RoomStatus == 1).ToList();
+            availableRooms = new ArrayList();
+            var allRooms = roomService.GetRoomInformations();
+            foreach (RoomInformation room in allRooms)
+            {
+                if (room.RoomTypeId == roomTypeId && room.RoomStatus == 1)
+                {
+                    availableRooms.Add(room);
+                }
+            }
             cboRoom.ItemsSource = availableRooms;
             cboRoom.DisplayMemberPath = "RoomNumber";
             cboRoom.SelectedValuePath = "RoomId";
         }
+
         private void LoadBookingDetails()
         {
             try
@@ -77,13 +85,26 @@ namespace FUMiniHotelManagement
 
         private void CalculateTotalPrice()
         {
+            // Kiểm tra ngày đặt phòng
             if (dpStartDate.SelectedDate.HasValue && dpEndDate.SelectedDate.HasValue && cboRoom.SelectedValue is int roomId)
             {
-                var selectedRoom = availableRooms.FirstOrDefault(r => r.RoomId == roomId);
-                if (selectedRoom?.RoomPricePerDay.HasValue == true)
+                RoomInformation selectedRoom = null;
+                //Lấy ra phòng được chọn
+                foreach (RoomInformation room in availableRooms)
                 {
+                    if (room.RoomId == roomId)
+                    {
+                        selectedRoom = room;
+                        break;
+                    }
+                }
+
+                // Kiểm tra phòng có bị null và có giá không
+                if (selectedRoom != null && selectedRoom.RoomPricePerDay != null)
+                {
+                    //Tính tiền
                     decimal totalPrice = (dpEndDate.SelectedDate.Value - dpStartDate.SelectedDate.Value).Days * selectedRoom.RoomPricePerDay.Value;
-                    txtTotalPrice.Text = totalPrice.ToString("F2"); // Ensures no currency symbol
+                    txtTotalPrice.Text = totalPrice.ToString("F2");
                 }
             }
         }
@@ -98,9 +119,21 @@ namespace FUMiniHotelManagement
 
         private void cboRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //Kiểm tra ID có tồn tại
             if (cboRoom.SelectedValue is int roomId)
             {
-                var selectedRoom = availableRooms.FirstOrDefault(r => r.RoomId == roomId);
+                //Lấy phòng được chọn từ trong arraylist phognf ra
+                RoomInformation selectedRoom = null;
+                foreach (RoomInformation room in availableRooms)
+                {
+                    if (room.RoomId == roomId)
+                    {
+                        selectedRoom = room;
+                        break;
+                    }
+                }
+
+                // Update price sau khi tìm được phòng
                 if (selectedRoom != null)
                 {
                     txtPricePerDay.Text = selectedRoom.RoomPricePerDay?.ToString("C") ?? "N/A";
@@ -128,15 +161,15 @@ namespace FUMiniHotelManagement
             DataGrid dataGrid = sender as DataGrid;
             if (dataGrid == null || dataGrid.SelectedIndex < 0) return;
 
-            // Get the selected row and check if it exists
+            // Lấy hàng được chọn và kiểm tra có null không
             DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(dataGrid.SelectedIndex);
             if (row == null) return;
 
-            // Get the cell content and check if it's valid
+            // Lấy thông tin từ hàng và check valid
             DataGridCell rowColumn = dataGrid.Columns[0].GetCellContent(row)?.Parent as DataGridCell;
             if (rowColumn?.Content is not TextBlock textBlock || string.IsNullOrWhiteSpace(textBlock.Text)) return;
 
-            // Attempt to parse the ID if valid
+            // parse id nếu valid
             if (!int.TryParse(textBlock.Text, out int bookingId)) return;
 
             BookingDetail booking = bookingService.GetBookingDetailById(bookingId);
@@ -152,46 +185,44 @@ namespace FUMiniHotelManagement
         {
             try
             {
-                // Set thông tin Booking Reservation
+                // Set thông tin cho Booking Reservation
                 var bookingReservation = new BookingReservation
                 {
                     BookingReservationId = int.Parse(txtBookingID.Text),
                     CustomerId = customerId,
-                    BookingDate = DateOnly.FromDateTime(DateTime.Now), // Set the booking date to the current date
-                    TotalPrice = 0, // We'll calculate this later, or you can set an initial value
-                    BookingDetails = new List<BookingDetail>() // Initialize the list for booking details
+                    BookingDate = DateOnly.FromDateTime(DateTime.Now),
+                    TotalPrice = 0,
+                    BookingDetails = new ArrayList() 
                 };
 
-                // Tạo Booking Reservation
+                // Call xuống service để save Booking Reservation
                 var bookingReservationCreated = bookingReservastionService.CreateBookingReservation(bookingReservation);
-                
+
                 if (!bookingReservationCreated)
                 {
                     MessageBox.Show("Failed to create booking reservation. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return; 
+                    return;
                 }
 
-                // Set thông tin Booking Details
+                // Set thông tin cho Booking Detail
                 var bookingDetail = new BookingDetail
                 {
-                    BookingReservationId = bookingReservation.BookingReservationId, // Set the foreign key
+                    BookingReservationId = bookingReservation.BookingReservationId,
                     RoomId = (int)cboRoom.SelectedValue,
                     StartDate = DateOnly.FromDateTime(dpStartDate.SelectedDate.Value),
                     EndDate = DateOnly.FromDateTime(dpEndDate.SelectedDate.Value),
                     ActualPrice = decimal.TryParse(txtTotalPrice.Text, out decimal totalPrice) ? totalPrice : (decimal?)null
                 };
 
-                // Tạo Booking Detail
+                // Call xuống service để save Booking Detail
                 var bookingDetailCreated = bookingService.CreateBookingDetail(bookingDetail);
                 if (!bookingDetailCreated)
                 {
                     MessageBox.Show("Failed to create booking detail. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return; 
+                    return;
                 }
 
-                // Cập nhật totalPrice
-                bookingReservation.TotalPrice += bookingDetail.ActualPrice ?? 0; 
-
+                bookingReservation.TotalPrice += bookingDetail.ActualPrice ?? 0;
 
                 MessageBox.Show("Booking added successfully!");
             }
@@ -201,8 +232,8 @@ namespace FUMiniHotelManagement
             }
             finally
             {
-                LoadBookingDetails(); 
-                ClearForm(); 
+                LoadBookingDetails();
+                ClearForm();
             }
         }
 
@@ -222,7 +253,6 @@ namespace FUMiniHotelManagement
 
         private void txtBookingID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
         }
     }
 }

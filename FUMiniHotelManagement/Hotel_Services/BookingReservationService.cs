@@ -1,6 +1,7 @@
 ﻿using Hotel_BussinessObjects;
 using Hotel_Repositories;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace Hotel_Services
             return iBookingReservationRepository.CreateBookingReservation(bookingRe);
         }
 
-        public List<BookingReservation> GetBookingReservations()
+        public ArrayList GetBookingReservations()
         {
             return iBookingReservationRepository.GetBookingReservations();
         }

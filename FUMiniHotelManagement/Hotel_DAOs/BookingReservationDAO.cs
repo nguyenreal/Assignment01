@@ -1,5 +1,6 @@
 ﻿using Hotel_BussinessObjects;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,13 @@ namespace Hotel_DAOs
 {
     public class BookingReservationDAO
     {
-        public static List<BookingReservation> GetBookingReservations()
+        public static ArrayList GetBookingReservations()
         {
-            var listBookingReservation = new List<BookingReservation>();
+            var listBookingReservation = new ArrayList();
             try
             {
                 using var context = new FuminiHotelManagementContext();
-                listBookingReservation = context.BookingReservations.ToList();
+                listBookingReservation.AddRange(context.BookingReservations.ToList());
             }
             catch (Exception ex)
             {
@@ -23,6 +24,7 @@ namespace Hotel_DAOs
             }
             return listBookingReservation;
         }
+
         public static bool CreateBookingReservation(BookingReservation bookingRe)
         {
             try

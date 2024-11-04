@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Hotel_BussinessObjects;
@@ -15,7 +16,12 @@ public partial class BookingReservation
 
     public byte? BookingStatus { get; set; }
 
-    public virtual ICollection<BookingDetail> BookingDetails { get; set; } = new List<BookingDetail>();
+    private ArrayList _bookingDetails = new ArrayList();
+    public virtual ArrayList BookingDetails
+    {
+        get => _bookingDetails;
+        set => _bookingDetails = value;
+    }
 
     public virtual Customer Customer { get; set; } = null!;
 }

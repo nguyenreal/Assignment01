@@ -5,44 +5,159 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FUMiniHotelManagement"
         mc:Ignorable="d"
-        Title="CustomerWindow" Height="450" Width="800">
-    <Grid>
+        Title="Hotel Booking Management" Height="900" Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="#f5f5f5">
+
+    <Window.Resources>
+        <!-- Common Styles -->
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#2c3e50"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,8,0,8"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#bdc3c7"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Background" Value="#3498db"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2980b9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400*"/>
-            <ColumnDefinition Width="450*"/>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Header -->
-        <Label Content="ROOM BOOKING MANAGEMENT" HorizontalAlignment="Center" Margin="10,10,0,0" 
-               VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <TextBlock Text="ROOM BOOKING MANAGEMENT" 
+                 Grid.ColumnSpan="2"
+                 HorizontalAlignment="Center"
+                 FontSize="24"
+                 FontWeight="Bold"
+                 Foreground="#2c3e50"
+                 Margin="0,0,0,30"/>
 
-        <!-- Booking Form -->
-        <Label Content="Start Date:" HorizontalAlignment="Left" Margin="20,101,0,0" VerticalAlignment="Top" Width="100"/>
-        <DatePicker x:Name="dpStartDate" HorizontalAlignment="Left" Margin="130,101,0,0" VerticalAlignment="Top" Width="200" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+        <!-- Left Panel - Booking Form -->
+        <Border Grid.Column="0"
+                Background="White"
+                CornerRadius="10"
+                Padding="20"
+                Margin="0,40,20,0"
+                BorderThickness="1"
+                BorderBrush="#e0e0e0">
+            <StackPanel>
+                <Label Content="Booking ID:"/>
+                <TextBox x:Name="txtBookingID" Margin="0,0,0,15"/>
 
-        <Label Content="End Date:" HorizontalAlignment="Left" Margin="20,132,0,0" VerticalAlignment="Top" Width="100"/>
-        <DatePicker x:Name="dpEndDate" HorizontalAlignment="Left" Margin="130,132,0,0" VerticalAlignment="Top" Width="200" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                <Label Content="Start Date:"/>
+                <DatePicker x:Name="dpStartDate" Margin="0,0,0,15" 
+                          SelectedDateChanged="DatePicker_SelectedDateChanged"/>
 
-        <Label Content="Room Type:" HorizontalAlignment="Left" Margin="20,163,0,0" VerticalAlignment="Top" Width="100"/>
-        <ComboBox x:Name="cboRoomType" HorizontalAlignment="Left" Margin="130,163,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="cboRoomType_SelectionChanged"/>
+                <Label Content="End Date:"/>
+                <DatePicker x:Name="dpEndDate" Margin="0,0,0,15"
+                          SelectedDateChanged="DatePicker_SelectedDateChanged"/>
 
-        <Label Content="Room:" HorizontalAlignment="Left" Margin="20,189,0,0" VerticalAlignment="Top" Width="100"/>
-        <ComboBox x:Name="cboRoom" HorizontalAlignment="Left" Margin="130,193,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="cboRoom_SelectionChanged"/>
+                <Label Content="Room Type:"/>
+                <ComboBox x:Name="cboRoomType" Margin="0,0,0,15"
+                         SelectionChanged="cboRoomType_SelectionChanged"/>
 
-        <Label Content="Price Per Day:" HorizontalAlignment="Left" Margin="20,220,0,0" VerticalAlignment="Top" Width="100"/>
-        <TextBlock x:Name="txtPricePerDay" HorizontalAlignment="Left" Margin="130,225,0,0" VerticalAlignment="Top" Width="200"/>
+                <Label Content="Room:"/>
+                <ComboBox x:Name="cboRoom" Margin="0,0,0,15"
+                         SelectionChanged="cboRoom_SelectionChanged"/>
 
-        <Label Content="Total Price:" HorizontalAlignment="Left" Margin="20,251,0,0" VerticalAlignment="Top" Width="100"/>
-        <TextBlock x:Name="txtTotalPrice" HorizontalAlignment="Left" Margin="130,256,0,0" VerticalAlignment="Top" Width="200"/>
+                <Label Content="Price Per Day:"/>
+                <TextBlock x:Name="txtPricePerDay" 
+                         FontSize="16"
+                         Foreground="#27ae60"
+                         FontWeight="SemiBold"
+                         Margin="0,5,0,15"/>
 
-        <Label Content="Booking ID:" HorizontalAlignment="Left" Margin="20,70,0,0" VerticalAlignment="Top" Width="100"/>
+                <Label Content="Total Price:"/>
+                <TextBlock x:Name="txtTotalPrice"
+                         FontSize="18"
+                         Foreground="#27ae60"
+                         FontWeight="Bold"
+                         Margin="0,5,0,20"/>
 
-        <!-- Buttons -->
-        <Button x:Name="btnCreate" Content="BOOK" HorizontalAlignment="Left" Margin="10,320,0,0" VerticalAlignment="Top" Width="100" Click="btnCreate_Click"/>
-        <Button x:Name="btnClose" Content="CLOSE" HorizontalAlignment="Center" Margin="0,320,0,0" VerticalAlignment="Top" Width="100" Click="btnClose_Click"/>
-        <DataGrid x:Name="dgData" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="376,54,26,26" Grid.ColumnSpan="2" SelectionChanged="dgData_SelectionChanged"/>
-        <TextBox x:Name="txtBookingID" HorizontalAlignment="Left" Margin="130,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                <StackPanel Orientation="Horizontal" 
+                          HorizontalAlignment="Center"
+                          Margin="0,20,0,0">
+                    <Button x:Name="btnCreate" 
+                            Content="BOOK NOW"
+                            Click="btnCreate_Click"
+                            Margin="0,0,10,0"/>
+                    <Button x:Name="btnClose"
+                            Content="CLOSE"
+                            Click="btnClose_Click"
+                            Background="#e74c3c"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
 
-        <!-- DataGrid for Room Bookings -->
+        <!-- Right Panel - Bookings Grid -->
+        <Border Grid.Column="1"
+                Background="White"
+                CornerRadius="10"
+                Margin="0,40,0,0"
+                BorderThickness="1"
+                BorderBrush="#e0e0e0">
+            <DataGrid x:Name="dgData"
+                     Margin="10"
+                     AutoGenerateColumns="True"
+                     IsReadOnly="True"
+                     SelectionChanged="dgData_SelectionChanged"
+                     BorderThickness="1"
+                     BorderBrush="#e0e0e0"
+                     RowBackground="White"
+                     AlternatingRowBackground="#f8f9fa"
+                     GridLinesVisibility="Horizontal"
+                     HorizontalGridLinesBrush="#e0e0e0"
+                     VerticalGridLinesBrush="#e0e0e0"
+                     CanUserResizeRows="False"
+                     HeadersVisibility="Column">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#f8f9fa"/>
+                        <Setter Property="Padding" Value="10"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
+        </Border>
     </Grid>
 </Window>

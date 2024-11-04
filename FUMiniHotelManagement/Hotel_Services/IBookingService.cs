@@ -1,5 +1,6 @@
 ﻿using Hotel_BussinessObjects;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Hotel_Services
 {
     public interface IBookingService
     {
-        List<BookingDetail> GetBookingDetails();
+        ArrayList GetBookingDetails();
         void SaveBooking(BookingDetail booking);
         void DeleteBooking(BookingDetail booking);
         void UpdateBooking(BookingDetail booking);

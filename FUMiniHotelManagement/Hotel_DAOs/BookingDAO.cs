@@ -1,5 +1,6 @@
 ﻿using Hotel_BussinessObjects;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,13 @@ namespace Hotel_DAOs
 {
     public class BookingDAO
     {
-        public static List<BookingDetail> GetBookingDetails()
+        public static ArrayList GetBookingDetails()
         {
-            var listBookingDetails = new List<BookingDetail>();
+            var listBookingDetails = new ArrayList();
             try
             {
                 using var db = new FuminiHotelManagementContext();
-                listBookingDetails = db.BookingDetails.ToList();
+                listBookingDetails.AddRange(db.BookingDetails.ToList());
             }
             catch (Exception e) { }
             return listBookingDetails;
@@ -33,17 +34,15 @@ namespace Hotel_DAOs
             {
                 throw new Exception(e.Message);
             }
-
         }
+
         public static void DeleteBooking(BookingDetail booking)
         {
             try
             {
                 using var context = new FuminiHotelManagementContext();
-                var p1 =
-                    context.BookingDetails.SingleOrDefault(c => c.BookingReservationId == booking.BookingReservationId);
+                var p1 = context.BookingDetails.SingleOrDefault(c => c.BookingReservationId == booking.BookingReservationId);
                 context.BookingDetails.Remove(p1);
-
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -51,13 +50,13 @@ namespace Hotel_DAOs
                 throw new Exception(e.Message);
             }
         }
+
         public static void UpdateBooking(BookingDetail booking)
         {
             try
             {
                 using var context = new FuminiHotelManagementContext();
-                context.Entry<BookingDetail>(booking).State
-                    = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.Entry<BookingDetail>(booking).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -65,6 +64,7 @@ namespace Hotel_DAOs
                 throw new Exception(e.Message);
             }
         }
+
         public static BookingDetail GetBookingDetailById(int id)
         {
             using var db = new FuminiHotelManagementContext();
@@ -78,15 +78,13 @@ namespace Hotel_DAOs
                 using var context = new FuminiHotelManagementContext();
                 context.BookingDetails.Add(bookingDetail);
                 context.SaveChanges();
-                return true; // Indicates success
+                return true;
             }
             catch (Exception ex)
             {
-                // Log the exception to better diagnose issues
                 Console.WriteLine("Error while creating booking detail: " + ex.Message);
-                return false; // Indicates failure
+                return false;
             }
         }
-    
     }
 }

@@ -11,8 +11,8 @@ namespace Hotel_Repositories
 {
     public class BookingReservationRepository : IBookingReservationRepository
     {
-        public bool CreateBookingReservation(BookingReservation bookingRe) => BookingReservationDAO.CreateBookingReservation(bookingRe);
-        public ArrayList GetBookingReservations() => BookingReservationDAO.GetBookingReservations();
+        public bool CreateBookingReservation(BookingReservation bookingRe) => BookingReservationDAO.Instance.CreateBookingReservation(bookingRe);
+        public ArrayList GetBookingReservations() => BookingReservationDAO.Instance.GetBookingReservations();
 
         
     }

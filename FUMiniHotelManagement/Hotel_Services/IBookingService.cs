@@ -11,7 +11,6 @@ namespace Hotel_Services
     public interface IBookingService
     {
         ArrayList GetBookingDetails();
-        void SaveBooking(BookingDetail booking);
         void DeleteBooking(BookingDetail booking);
         void UpdateBooking(BookingDetail booking);
         BookingDetail GetBookingDetailById(int id);

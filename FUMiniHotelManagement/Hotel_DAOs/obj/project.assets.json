@@ -3053,11 +3053,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_DAOs\\Hotel_DAOs.csproj",
+      "projectUniqueName": "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_DAOs\\Hotel_DAOs.csproj",
       "projectName": "Hotel_DAOs",
-      "projectPath": "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_DAOs\\Hotel_DAOs.csproj",
+      "projectPath": "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_DAOs\\Hotel_DAOs.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_DAOs\\obj\\",
+      "outputPath": "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_DAOs\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3075,8 +3075,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj": {
-              "projectPath": "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj"
+            "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj": {
+              "projectPath": "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj"
             }
           }
         }

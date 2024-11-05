@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ScqTy4JumiI=",
+  "dgSpecHash": "LTl7iRn5/NQ=",
   "success": true,
-  "projectFilePath": "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_DAOs\\Hotel_DAOs.csproj",
+  "projectFilePath": "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_DAOs\\Hotel_DAOs.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

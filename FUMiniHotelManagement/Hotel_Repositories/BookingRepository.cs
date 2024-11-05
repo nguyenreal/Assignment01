@@ -11,16 +11,14 @@ namespace Hotel_Repositories
 {
     public class BookingRepository : IBookingRepository
     {
-        public bool CreateBookingDetail(BookingDetail bookingDetail) => BookingDAO.CreateBookingDetail(bookingDetail);
+        public bool CreateBookingDetail(BookingDetail bookingDetail) => BookingDAO.Instance.CreateBookingDetail(bookingDetail);
 
-        public void DeleteBooking(BookingDetail booking) => BookingDAO.DeleteBooking(booking);
+        public void DeleteBooking(BookingDetail booking) => BookingDAO.Instance.DeleteBooking(booking);
 
-        public BookingDetail GetBookingDetailById(int id) => BookingDAO.GetBookingDetailById(id);
+        public BookingDetail GetBookingDetailById(int id) => BookingDAO.Instance.GetBookingDetailById(id);
 
-        public ArrayList GetBookingDetails() => BookingDAO.GetBookingDetails();
+        public ArrayList GetBookingDetails() => BookingDAO.Instance.GetBookingDetails();
 
-        public void SaveBooking(BookingDetail booking) => BookingDAO.SaveBooking(booking);
-
-        public void UpdateBooking(BookingDetail booking) => BookingDAO.UpdateBooking(booking);
+        public void UpdateBooking(BookingDetail booking) => BookingDAO.Instance.UpdateBooking(booking);
     }
 }

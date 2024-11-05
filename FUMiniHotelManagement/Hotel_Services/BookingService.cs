@@ -37,11 +37,6 @@ namespace Hotel_Services
             return iBookingRepository.GetBookingDetails();
         }
 
-        public void SaveBooking(BookingDetail booking)
-        {
-            iBookingRepository.SaveBooking(booking);
-        }
-
         public void UpdateBooking(BookingDetail booking)
         {
             iBookingRepository.UpdateBooking(booking);

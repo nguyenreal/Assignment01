@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj": {}
+    "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj": {}
   },
   "projects": {
-    "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj": {
+    "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj",
+        "projectUniqueName": "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj",
         "projectName": "Hotel_BussinessObjects",
-        "projectPath": "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj",
+        "projectPath": "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\obj\\",
+        "outputPath": "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",

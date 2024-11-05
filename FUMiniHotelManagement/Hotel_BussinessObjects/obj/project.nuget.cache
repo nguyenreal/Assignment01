@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OZ+W7cklFZU=",
+  "dgSpecHash": "jZxQYq4NHsM=",
   "success": true,
-  "projectFilePath": "D:\\DotNet\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj",
+  "projectFilePath": "D:\\SpringBoot\\Assignment02\\Assignment01\\FUMiniHotelManagement\\Hotel_BussinessObjects\\Hotel_BussinessObjects.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

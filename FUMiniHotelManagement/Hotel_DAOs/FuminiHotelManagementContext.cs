@@ -54,15 +54,31 @@ public partial class FuminiHotelManagementContext : DbContext
         modelBuilder.Entity<BookingDetail>(entity =>
         {
             entity.HasKey(e => new { e.BookingReservationId, e.RoomId });
+
             entity.ToTable("BookingDetail");
-            entity.Property(e => e.BookingReservationId).HasColumnName("BookingReservationID");
-            entity.Property(e => e.RoomId).HasColumnName("RoomID");
-            entity.Property(e => e.ActualPrice).HasColumnType("money");
+
+            entity.Property(e => e.BookingReservationId)
+                .HasColumnName("BookingReservationID");
+
+            entity.Property(e => e.RoomId)
+                .HasColumnName("RoomID");
+
+            entity.Property(e => e.ActualPrice)
+                .HasColumnType("money");
+
+            entity.Property(e => e.StartDate)
+                .HasColumnType("date");
+
+            entity.Property(e => e.EndDate)
+                .HasColumnType("date");
+
             entity.HasOne(d => d.BookingReservation)
-                .WithMany()
+                .WithMany(p => p.BookingDetails)
                 .HasForeignKey(d => d.BookingReservationId)
                 .HasConstraintName("FK_BookingDetail_BookingReservation");
-            entity.HasOne(d => d.Room).WithMany(p => p.BookingDetails)
+
+            entity.HasOne(d => d.Room)
+                .WithMany(p => p.BookingDetails)
                 .HasForeignKey(d => d.RoomId)
                 .HasConstraintName("FK_BookingDetail_RoomInformation");
         });
@@ -70,51 +86,79 @@ public partial class FuminiHotelManagementContext : DbContext
         modelBuilder.Entity<BookingReservation>(entity =>
         {
             entity.ToTable("BookingReservation");
+
+            entity.HasKey(e => e.BookingReservationId);
+
             entity.Property(e => e.BookingReservationId)
-                .ValueGeneratedNever()
-                .HasColumnName("BookingReservationID");
-            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
-            entity.Property(e => e.TotalPrice).HasColumnType("money");
-            entity.HasOne(d => d.Customer).WithMany(p => p.BookingReservations)
+                .HasColumnName("BookingReservationID")
+                .ValueGeneratedNever();
+
+            entity.Property(e => e.CustomerId)
+                .HasColumnName("CustomerID");
+
+            entity.Property(e => e.TotalPrice)
+                .HasColumnType("money");
+
+            entity.Property(e => e.BookingDate)
+                .HasColumnType("date");
+
+            entity.Property(e => e.BookingStatus)
+                .HasColumnType("tinyint");
+
+            entity.HasOne(d => d.Customer)
+                .WithMany(p => p.BookingReservations)
                 .HasForeignKey(d => d.CustomerId)
                 .HasConstraintName("FK_BookingReservation_Customer");
-
-            // Update the BookingDetails property to use ArrayList
-            entity.Property(e => e.BookingDetails)
-                .HasColumnName("BookingDetails")
-                .HasColumnType("nvarchar(max)")
-                .HasConversion(
-                    v => JsonSerializer.Serialize((IEnumerable<BookingDetail>)v, new JsonSerializerOptions { WriteIndented = true }),
-                    v => JsonSerializer.Deserialize<ArrayList>(v, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }));
         });
-
 
         modelBuilder.Entity<Customer>(entity =>
         {
             entity.ToTable("Customer");
 
-            entity.HasIndex(e => e.EmailAddress, "UQ__Customer__49A1474064760951").IsUnique();
+            entity.HasKey(e => e.CustomerId);
 
-            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
-            entity.Property(e => e.CustomerFullName).HasMaxLength(50);
-            entity.Property(e => e.EmailAddress).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(50);
-            entity.Property(e => e.Telephone).HasMaxLength(12);
+            entity.HasIndex(e => e.EmailAddress, "UQ__Customer__49A1474064760951")
+                .IsUnique();
+
+            entity.Property(e => e.CustomerId)
+                .HasColumnName("CustomerID");
+
+            entity.Property(e => e.CustomerFullName)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.EmailAddress)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.Password)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.Telephone)
+                .HasMaxLength(12);
         });
 
         modelBuilder.Entity<RoomInformation>(entity =>
         {
-            entity.HasKey(e => e.RoomId);
-
             entity.ToTable("RoomInformation");
 
-            entity.Property(e => e.RoomId).HasColumnName("RoomID");
-            entity.Property(e => e.RoomDetailDescription).HasMaxLength(220);
-            entity.Property(e => e.RoomNumber).HasMaxLength(50);
-            entity.Property(e => e.RoomPricePerDay).HasColumnType("money");
-            entity.Property(e => e.RoomTypeId).HasColumnName("RoomTypeID");
+            entity.HasKey(e => e.RoomId);
 
-            entity.HasOne(d => d.RoomType).WithMany(p => p.RoomInformations)
+            entity.Property(e => e.RoomId)
+                .HasColumnName("RoomID");
+
+            entity.Property(e => e.RoomDetailDescription)
+                .HasMaxLength(220);
+
+            entity.Property(e => e.RoomNumber)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.RoomPricePerDay)
+                .HasColumnType("money");
+
+            entity.Property(e => e.RoomTypeId)
+                .HasColumnName("RoomTypeID");
+
+            entity.HasOne(d => d.RoomType)
+                .WithMany(p => p.RoomInformations)
                 .HasForeignKey(d => d.RoomTypeId)
                 .HasConstraintName("FK_RoomInformation_RoomType");
         });
@@ -123,10 +167,19 @@ public partial class FuminiHotelManagementContext : DbContext
         {
             entity.ToTable("RoomType");
 
-            entity.Property(e => e.RoomTypeId).HasColumnName("RoomTypeID");
-            entity.Property(e => e.RoomTypeName).HasMaxLength(50);
-            entity.Property(e => e.TypeDescription).HasMaxLength(250);
-            entity.Property(e => e.TypeNote).HasMaxLength(250);
+            entity.HasKey(e => e.RoomTypeId);
+
+            entity.Property(e => e.RoomTypeId)
+                .HasColumnName("RoomTypeID");
+
+            entity.Property(e => e.RoomTypeName)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.TypeDescription)
+                .HasMaxLength(250);
+
+            entity.Property(e => e.TypeNote)
+                .HasMaxLength(250);
         });
 
         OnModelCreatingPartial(modelBuilder);

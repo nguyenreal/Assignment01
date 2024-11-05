@@ -70,7 +70,17 @@ namespace FUMiniHotelManagement
         {
             try
             {
-                var bookingList = bookingService.GetBookingDetails();
+                var bookingList = ((IEnumerable)bookingService.GetBookingDetails())
+                    .Cast<BookingDetail>()
+                    .Select(b => new
+                    {
+                        b.BookingReservationId,
+                        b.RoomId,
+                        RoomNumber = b.Room?.RoomNumber,
+                        b.StartDate,
+                        b.EndDate,
+                        b.ActualPrice
+                    });
                 dgData.ItemsSource = bookingList;
             }
             catch (Exception ex)
@@ -173,6 +183,7 @@ namespace FUMiniHotelManagement
             if (!int.TryParse(textBlock.Text, out int bookingId)) return;
 
             BookingDetail booking = bookingService.GetBookingDetailById(bookingId);
+            if (booking == null) return;
 
             // Điền thông tin trên data Grid
             dpStartDate.Text = booking.StartDate.ToString();
@@ -186,14 +197,13 @@ namespace FUMiniHotelManagement
             try
             {
                 // Set thông tin cho Booking Reservation
-                var bookingReservation = new BookingReservation
-                {
-                    BookingReservationId = int.Parse(txtBookingID.Text),
-                    CustomerId = customerId,
-                    BookingDate = DateOnly.FromDateTime(DateTime.Now),
-                    TotalPrice = 0,
-                    BookingDetails = new ArrayList() 
-                };
+                var bookingReservation = new BookingReservation(
+                    int.Parse(txtBookingID.Text),
+                    DateOnly.FromDateTime(DateTime.Now),
+                    0, // Giá sẽ được sửa sau khi tính tiền
+                    customerId,
+                    1  // Active status
+                );
 
                 // Call xuống service để save Booking Reservation
                 var bookingReservationCreated = bookingReservastionService.CreateBookingReservation(bookingReservation);
@@ -205,14 +215,13 @@ namespace FUMiniHotelManagement
                 }
 
                 // Set thông tin cho Booking Detail
-                var bookingDetail = new BookingDetail
-                {
-                    BookingReservationId = bookingReservation.BookingReservationId,
-                    RoomId = (int)cboRoom.SelectedValue,
-                    StartDate = DateOnly.FromDateTime(dpStartDate.SelectedDate.Value),
-                    EndDate = DateOnly.FromDateTime(dpEndDate.SelectedDate.Value),
-                    ActualPrice = decimal.TryParse(txtTotalPrice.Text, out decimal totalPrice) ? totalPrice : (decimal?)null
-                };
+                var bookingDetail = new BookingDetail(
+                    bookingReservation.BookingReservationId,
+                    (int)cboRoom.SelectedValue,
+                    DateOnly.FromDateTime(dpStartDate.SelectedDate.Value),
+                    DateOnly.FromDateTime(dpEndDate.SelectedDate.Value),
+                    decimal.TryParse(txtTotalPrice.Text, out decimal totalPrice) ? totalPrice : 0m
+                );
 
                 // Call xuống service để save Booking Detail
                 var bookingDetailCreated = bookingService.CreateBookingDetail(bookingDetail);
@@ -221,8 +230,6 @@ namespace FUMiniHotelManagement
                     MessageBox.Show("Failed to create booking detail. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
-                bookingReservation.TotalPrice += bookingDetail.ActualPrice ?? 0;
 
                 MessageBox.Show("Booking added successfully!");
             }

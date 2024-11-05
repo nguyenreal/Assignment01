@@ -12,7 +12,6 @@ namespace Hotel_Repositories
     public interface IBookingRepository
     {
         ArrayList GetBookingDetails();
-        void SaveBooking(BookingDetail booking);
         void DeleteBooking(BookingDetail booking);
         void UpdateBooking(BookingDetail booking);
         BookingDetail GetBookingDetailById(int id);

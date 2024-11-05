@@ -10,81 +10,91 @@ namespace Hotel_DAOs
 {
     public class BookingDAO
     {
-        public static ArrayList GetBookingDetails()
+        private FuminiHotelManagementContext dbcontext;
+        private static BookingDAO instance;
+        private static ArrayList listBookingDetails = new ArrayList();
+
+        public static BookingDAO Instance
         {
-            var listBookingDetails = new ArrayList();
-            try
+            get
             {
-                using var db = new FuminiHotelManagementContext();
-                listBookingDetails.AddRange(db.BookingDetails.ToList());
+                if (instance == null)
+                {
+                    instance = new BookingDAO();
+                }
+                return instance;
             }
-            catch (Exception e) { }
+        }
+
+        public BookingDAO()
+        {
+            // Initialize with sample data
+            BookingDetail booking1 = new BookingDetail(1, 101, DateOnly.Parse("2024-03-01"),
+                DateOnly.Parse("2024-03-03"), 200.00m);
+            BookingDetail booking2 = new BookingDetail(2, 102, DateOnly.Parse("2024-03-02"),
+                DateOnly.Parse("2024-03-04"), 250.00m);
+            // Add more sample data as needed
+
+            listBookingDetails.Add(booking1);
+            listBookingDetails.Add(booking2);
+        }
+
+        public ArrayList GetBookingDetails()
+        {
             return listBookingDetails;
         }
 
-        public static void SaveBooking(BookingDetail booking)
+        public BookingDetail GetBookingDetailById(int id)
         {
-            try
+            foreach (BookingDetail detail in listBookingDetails)
             {
-                using var context = new FuminiHotelManagementContext();
-                context.BookingDetails.Add(booking);
-                context.SaveChanges();
+                if (detail.BookingReservationId == id)
+                {
+                    return detail;
+                }
             }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            return null;
         }
 
-        public static void DeleteBooking(BookingDetail booking)
+        public bool CreateBookingDetail(BookingDetail bookingDetail)
         {
-            try
+            bool isSuccess = false;
+            BookingDetail existing = GetBookingDetailById(bookingDetail.BookingReservationId);
+            if (existing == null)
             {
-                using var context = new FuminiHotelManagementContext();
-                var p1 = context.BookingDetails.SingleOrDefault(c => c.BookingReservationId == booking.BookingReservationId);
-                context.BookingDetails.Remove(p1);
-                context.SaveChanges();
+                listBookingDetails.Add(bookingDetail);
+                isSuccess = true;
             }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            return isSuccess;
         }
 
-        public static void UpdateBooking(BookingDetail booking)
+        public bool DeleteBooking(BookingDetail booking)
         {
-            try
+            bool isSuccess = false;
+            BookingDetail existing = GetBookingDetailById(booking.BookingReservationId);
+            if (existing != null)
             {
-                using var context = new FuminiHotelManagementContext();
-                context.Entry<BookingDetail>(booking).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                context.SaveChanges();
+                listBookingDetails.Remove(existing);
+                isSuccess = true;
             }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            return isSuccess;
         }
 
-        public static BookingDetail GetBookingDetailById(int id)
+        public bool UpdateBooking(BookingDetail booking)
         {
-            using var db = new FuminiHotelManagementContext();
-            return db.BookingDetails.FirstOrDefault(c => c.BookingReservationId.Equals(id));
+            bool isSuccess = false;
+            BookingDetail existing = GetBookingDetailById(booking.BookingReservationId);
+            if (existing != null)
+            {
+                existing.RoomId = booking.RoomId;
+                existing.StartDate = booking.StartDate;
+                existing.EndDate = booking.EndDate;
+                existing.ActualPrice = booking.ActualPrice;
+                isSuccess = true;
+            }
+            return isSuccess;
         }
 
-        public static bool CreateBookingDetail(BookingDetail bookingDetail)
-        {
-            try
-            {
-                using var context = new FuminiHotelManagementContext();
-                context.BookingDetails.Add(bookingDetail);
-                context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error while creating booking detail: " + ex.Message);
-                return false;
-            }
-        }
+
     }
 }
